@@ -1,8 +1,9 @@
 import 'dart:developer';
 
-import 'package:example/detailscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
+
+import 'detailscreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,9 +24,9 @@ class MyApp extends StatelessWidget {
             log('onComplete: $index, $key');
           },
           builder: Builder(builder: (context) => MailPage()),
-          autoPlay: true,
+          autoPlay: false,
           autoPlayDelay: Duration(seconds: 3),
-          autoPlayLockEnable: true,
+          autoPlayLockEnable: false,
         ),
       ),
     );
@@ -44,13 +45,87 @@ class _MailPageState extends State<MailPage> {
   GlobalKey _four = GlobalKey();
   GlobalKey _five = GlobalKey();
 
+  Widget _buildShowCaseControl({
+    @required int currentCase,
+    @required int totalCase,
+    Function onNext,
+    Function onPrev,
+    bool isTop = true,
+  }) {
+    return Positioned(
+      top: isTop ? 30 : null,
+      left: 10,
+      right: 10,
+      bottom: !isTop ? 20 : null,
+      child: Container(
+        width: double.infinity,
+        height: 60,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(),
+            ),
+            Expanded(
+              flex: 3,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          if (onPrev != null) onPrev();
+                        },
+                        child: Icon(
+                          Icons.keyboard_arrow_left,
+                          color: Colors.white,
+                        ),
+                      ),
+                      height: 60,
+                      width: 60,
+                    ),
+                    Container(
+                      child: Material(
+                        child: Text(
+                          "$currentCase  dari  $totalCase",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          if (onNext != null) onNext();
+                        },
+                        child: Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.white,
+                        ),
+                      ),
+                      height: 60,
+                      width: 60,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    //Start showcase view after current widget frames are drawn.
-    WidgetsBinding.instance.addPostFrameCallback((_) =>
-        ShowCaseWidget.of(context)
-            .startShowCase([_one, _two, _three, _four, _five]));
-
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -79,6 +154,16 @@ class _MailPageState extends State<MailPage> {
                                     Icons.menu,
                                     color: Colors.black45,
                                   ),
+                                  controllerWidget: _buildShowCaseControl(
+                                    currentCase: 1,
+                                    totalCase: 5,
+                                    onNext: () {
+                                      ShowCaseWidget.of(context)
+                                          .startShowCase([_two, _three, _four, _five,]);
+                                    },
+                                    onPrev: () {},
+                                    isTop: false
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -100,6 +185,18 @@ class _MailPageState extends State<MailPage> {
                             showcaseBackgroundColor: Colors.blueAccent,
                             textColor: Colors.white,
                             shapeBorder: CircleBorder(),
+                            controllerWidget: _buildShowCaseControl(
+                              currentCase: 2,
+                              totalCase: 5,
+                              onNext: () {
+                                ShowCaseWidget.of(context)
+                                    .startShowCase([_three, _four, _five]);
+                              },
+                              onPrev: () {
+                                ShowCaseWidget.of(context)
+                                    .startShowCase([_one,_two, _three, _four, _five]);
+                              },
+                            ),
                             child: Container(
                               width: 30,
                               height: 30,

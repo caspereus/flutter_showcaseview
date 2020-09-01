@@ -47,23 +47,24 @@ class ToolTipWidget extends StatefulWidget {
   final VoidCallback onTooltipTap;
   final EdgeInsets contentPadding;
 
-  ToolTipWidget(
-      {this.position,
-      this.offset,
-      this.screenSize,
-      this.title,
-      this.description,
-      this.animationOffset,
-      this.titleTextStyle,
-      this.descTextStyle,
-      this.container,
-      this.tooltipColor,
-      this.textColor,
-      this.showArrow,
-      this.contentHeight,
-      this.contentWidth,
-      this.onTooltipTap,
-      this.contentPadding});
+  ToolTipWidget({
+    this.position,
+    this.offset,
+    this.screenSize,
+    this.title,
+    this.description,
+    this.animationOffset,
+    this.titleTextStyle,
+    this.descTextStyle,
+    this.container,
+    this.tooltipColor,
+    this.textColor,
+    this.showArrow,
+    this.contentHeight,
+    this.contentWidth,
+    this.onTooltipTap,
+    this.contentPadding,
+  });
 
   @override
   _ToolTipWidgetState createState() => _ToolTipWidgetState();
