@@ -70,7 +70,8 @@ class _MailPageState extends State<MailPage> {
                               children: <Widget>[
                                 Showcase(
                                   key: _one,
-                                  description: 'Tap to see menu options',
+                                  contentPadding: EdgeInsets.all(10),
+                                  description: 'Tap to see menu options Tap to see menu options Tap to see menu options',
                                   child: Icon(
                                     Icons.menu,
                                     color: Colors.black45,
@@ -89,6 +90,7 @@ class _MailPageState extends State<MailPage> {
                                     onPrev: () {},
                                     isTop: false,
                                   ),
+                                  isFullSizeWidth: true,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -171,6 +173,7 @@ class _MailPageState extends State<MailPage> {
                     key: _three,
                     description: 'Tap to check mail',
                     disposeOnTap: true,
+                    forceAboveTooltip: true,
                     controllerWidget: ShowCaseNavigation(
                       currentCase: 3,
                       totalCase: 5,

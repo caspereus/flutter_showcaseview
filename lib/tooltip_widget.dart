@@ -46,26 +46,29 @@ class ToolTipWidget extends StatefulWidget {
   static bool isArrowUp;
   final VoidCallback onTooltipTap;
   final EdgeInsets contentPadding;
-  final isFullSizeWidth;
+  final bool isFullSizeWidth;
+  final bool forceAboveTooltip;
 
-  ToolTipWidget(
-      {this.position,
-      this.offset,
-      this.screenSize,
-      this.title,
-      this.description,
-      this.animationOffset,
-      this.titleTextStyle,
-      this.descTextStyle,
-      this.container,
-      this.tooltipColor,
-      this.textColor,
-      this.showArrow,
-      this.contentHeight,
-      this.contentWidth,
-      this.onTooltipTap,
-      this.contentPadding,
-      this.isFullSizeWidth = false});
+  ToolTipWidget({
+    this.position,
+    this.offset,
+    this.screenSize,
+    this.title,
+    this.description,
+    this.animationOffset,
+    this.titleTextStyle,
+    this.descTextStyle,
+    this.container,
+    this.tooltipColor,
+    this.textColor,
+    this.showArrow,
+    this.contentHeight,
+    this.contentWidth,
+    this.onTooltipTap,
+    this.contentPadding,
+    this.isFullSizeWidth = false,
+    this.forceAboveTooltip = false,
+  });
 
   @override
   _ToolTipWidgetState createState() => _ToolTipWidgetState();
@@ -73,6 +76,8 @@ class ToolTipWidget extends StatefulWidget {
 
 class _ToolTipWidgetState extends State<ToolTipWidget> {
   Offset position;
+  static const String ABOVE = "ABOVE";
+  static const String BELOW = "BELOW";
 
   bool isCloseToTopOrBottom(Offset position) {
     double height = 120;
@@ -82,9 +87,9 @@ class _ToolTipWidgetState extends State<ToolTipWidget> {
 
   String findPositionForContent(Offset position) {
     if (isCloseToTopOrBottom(position)) {
-      return 'ABOVE';
+      return ABOVE;
     } else {
-      return 'BELOW';
+      return BELOW;
     }
   }
 
@@ -159,8 +164,9 @@ class _ToolTipWidgetState extends State<ToolTipWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final contentOrientation = findPositionForContent(position);
-    final contentOffsetMultiplier = contentOrientation == "BELOW" ? 1.0 : -1.0;
+    print("FORCE ABOVE ${widget.forceAboveTooltip}");
+    final contentOrientation = widget.forceAboveTooltip ? ABOVE : findPositionForContent(position);
+    final contentOffsetMultiplier = contentOrientation == BELOW ? 1.0 : -1.0;
     ToolTipWidget.isArrowUp = contentOffsetMultiplier == 1.0;
 
     final contentY = ToolTipWidget.isArrowUp
@@ -183,8 +189,8 @@ class _ToolTipWidgetState extends State<ToolTipWidget> {
           widget.showArrow ? _getArrow(contentOffsetMultiplier) : Container(),
           Positioned(
             top: contentY,
-            left: widget.isFullSizeWidth ? 0 : _getLeft(),
-            right: widget.isFullSizeWidth ? 0 : _getRight(),
+            left: widget.isFullSizeWidth ? 20 : _getLeft(),
+            right: widget.isFullSizeWidth ? 20 : _getRight(),
             child: FractionalTranslation(
               translation: Offset(0.0, contentFractionalOffset),
               child: SlideTransition(
@@ -228,12 +234,16 @@ class _ToolTipWidgetState extends State<ToolTipWidget> {
                                         : Container(),
                                     Text(
                                       widget.description,
+                                      textAlign: TextAlign.center,
                                       style: widget.descTextStyle ??
                                           Theme.of(context)
                                               .textTheme
                                               .subtitle2
-                                              .merge(TextStyle(
-                                                  color: widget.textColor)),
+                                              .merge(
+                                                TextStyle(
+                                                  color: widget.textColor,
+                                                ),
+                                              ),
                                     ),
                                   ],
                                 ),

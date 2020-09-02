@@ -31,6 +31,7 @@ class Showcase extends StatefulWidget {
   final bool disableAnimation;
   final Widget controllerWidget;
   final bool isFullSizeWidth;
+  final bool forceAboveTooltip;
 
   const Showcase({
     @required this.key,
@@ -53,6 +54,7 @@ class Showcase extends StatefulWidget {
     this.onToolTipClick,
     this.controllerWidget,
     this.isFullSizeWidth = false,
+    this.forceAboveTooltip = false,
   })  : height = null,
         width = null,
         container = null,
@@ -84,29 +86,30 @@ class Showcase extends StatefulWidget {
               animationDuration != null,
         );
 
-  const Showcase.withWidget(
-      {this.key,
-      @required this.child,
-      @required this.container,
-      @required this.height,
-      @required this.width,
-      this.title,
-      this.description,
-      this.shapeBorder,
-      this.overlayColor = Colors.black,
-      this.overlayOpacity = 0.75,
-      this.titleTextStyle,
-      this.descTextStyle,
-      this.showcaseBackgroundColor = Colors.white,
-      this.textColor = Colors.black,
-      this.onTargetClick,
-      this.disposeOnTap,
-      this.animationDuration = const Duration(milliseconds: 2000),
-      this.disableAnimation = false,
-      this.contentPadding = const EdgeInsets.symmetric(vertical: 8),
-      this.controllerWidget,
-      this.isFullSizeWidth = false})
-      : this.showArrow = false,
+  const Showcase.withWidget({
+    this.key,
+    @required this.child,
+    @required this.container,
+    @required this.height,
+    @required this.width,
+    this.title,
+    this.description,
+    this.shapeBorder,
+    this.overlayColor = Colors.black,
+    this.overlayOpacity = 0.75,
+    this.titleTextStyle,
+    this.descTextStyle,
+    this.showcaseBackgroundColor = Colors.white,
+    this.textColor = Colors.black,
+    this.onTargetClick,
+    this.disposeOnTap,
+    this.animationDuration = const Duration(milliseconds: 2000),
+    this.disableAnimation = false,
+    this.contentPadding = const EdgeInsets.symmetric(vertical: 8),
+    this.controllerWidget,
+    this.isFullSizeWidth = false,
+    this.forceAboveTooltip = false,
+  })  : this.showArrow = false,
         this.onToolTipClick = null,
         assert(overlayOpacity >= 0.0 && overlayOpacity <= 1.0,
             "overlay opacity should be >= 0.0 and <= 1.0."),
@@ -285,6 +288,7 @@ class _ShowcaseState extends State<Showcase> with TickerProviderStateMixin {
               onTooltipTap: _getOnTooltipTap(),
               contentPadding: widget.contentPadding,
               isFullSizeWidth: widget.isFullSizeWidth,
+              forceAboveTooltip: widget.forceAboveTooltip,
             ),
             widget.controllerWidget != null
                 ? widget.controllerWidget
