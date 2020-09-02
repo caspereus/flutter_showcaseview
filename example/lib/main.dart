@@ -76,19 +76,19 @@ class _MailPageState extends State<MailPage> {
                                     color: Colors.black45,
                                   ),
                                   controllerWidget: ShowCaseNavigation(
-                                      currentCase: 1,
-                                      totalCase: 5,
-                                      onNext: () {
-                                        ShowCaseWidget.of(context)
-                                            .startShowCase([
-                                          _two,
-                                          _three,
-                                          _four,
-                                          _five,
-                                        ]);
-                                      },
-                                      onPrev: () {},
-                                      isTop: false),
+                                    currentCase: 1,
+                                    totalCase: 5,
+                                    onNext: () {
+                                      ShowCaseWidget.of(context).startShowCase([
+                                        _two,
+                                        _three,
+                                        _four,
+                                        _five,
+                                      ]);
+                                    },
+                                    onPrev: () {},
+                                    isTop: false,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -171,6 +171,18 @@ class _MailPageState extends State<MailPage> {
                     key: _three,
                     description: 'Tap to check mail',
                     disposeOnTap: true,
+                    controllerWidget: ShowCaseNavigation(
+                      currentCase: 3,
+                      totalCase: 5,
+                      onNext: () {
+                        ShowCaseWidget.of(context)
+                            .startShowCase([_four, _five]);
+                      },
+                      onPrev: () {
+                        ShowCaseWidget.of(context)
+                            .startShowCase([_two, _three, _four, _five]);
+                      },
+                    ),
                     onTargetClick: () {
                       Navigator.push(
                         context,
@@ -198,6 +210,18 @@ class _MailPageState extends State<MailPage> {
                                   height: 50,
                                   width: 140,
                                   shapeBorder: CircleBorder(),
+                                  controllerWidget: ShowCaseNavigation(
+                                    currentCase: 4,
+                                    totalCase: 5,
+                                    onNext: () {
+                                      ShowCaseWidget.of(context).startShowCase(
+                                          [_five]);
+                                    },
+                                    onPrev: () {
+                                      ShowCaseWidget.of(context).startShowCase(
+                                          [_three, _four, _five]);
+                                    },
+                                  ),
                                   container: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

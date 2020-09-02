@@ -46,25 +46,26 @@ class ToolTipWidget extends StatefulWidget {
   static bool isArrowUp;
   final VoidCallback onTooltipTap;
   final EdgeInsets contentPadding;
+  final isFullSizeWidth;
 
-  ToolTipWidget({
-    this.position,
-    this.offset,
-    this.screenSize,
-    this.title,
-    this.description,
-    this.animationOffset,
-    this.titleTextStyle,
-    this.descTextStyle,
-    this.container,
-    this.tooltipColor,
-    this.textColor,
-    this.showArrow,
-    this.contentHeight,
-    this.contentWidth,
-    this.onTooltipTap,
-    this.contentPadding,
-  });
+  ToolTipWidget(
+      {this.position,
+      this.offset,
+      this.screenSize,
+      this.title,
+      this.description,
+      this.animationOffset,
+      this.titleTextStyle,
+      this.descTextStyle,
+      this.container,
+      this.tooltipColor,
+      this.textColor,
+      this.showArrow,
+      this.contentHeight,
+      this.contentWidth,
+      this.onTooltipTap,
+      this.contentPadding,
+      this.isFullSizeWidth = false});
 
   @override
   _ToolTipWidgetState createState() => _ToolTipWidgetState();
@@ -182,8 +183,8 @@ class _ToolTipWidgetState extends State<ToolTipWidget> {
           widget.showArrow ? _getArrow(contentOffsetMultiplier) : Container(),
           Positioned(
             top: contentY,
-            left: _getLeft(),
-            right: _getRight(),
+            left: widget.isFullSizeWidth ? 0 : _getLeft(),
+            right: widget.isFullSizeWidth ? 0 : _getRight(),
             child: FractionalTranslation(
               translation: Offset(0.0, contentFractionalOffset),
               child: SlideTransition(
