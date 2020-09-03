@@ -53,8 +53,8 @@ class ShowCaseNavigation extends StatelessWidget {
                           size: 35,
                         ),
                       ),
-                      height: 70,
-                      width: 70,
+                      height: 60,
+                      width: 60,
                     ),
                     Container(
                       child: Material(
@@ -79,8 +79,8 @@ class ShowCaseNavigation extends StatelessWidget {
                           size: 35,
                         ),
                       ),
-                      height: 70,
-                      width: 70,
+                      height: 60,
+                      width: 60,
                     ),
                   ],
                 ),
