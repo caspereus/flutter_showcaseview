@@ -7,6 +7,8 @@ class ShowCaseNavigation extends StatelessWidget {
   final Function onNext;
   final Function onPrev;
   final bool isTop;
+  final bool isLast;
+  final Function onClose;
 
   ShowCaseNavigation({
     @required this.currentCase,
@@ -14,6 +16,8 @@ class ShowCaseNavigation extends StatelessWidget {
     this.onNext,
     this.onPrev,
     this.isTop = true,
+    this.isLast = false,
+    this.onClose,
   });
 
   @override
@@ -46,10 +50,11 @@ class ShowCaseNavigation extends StatelessWidget {
                         child: Icon(
                           Icons.keyboard_arrow_left,
                           color: Colors.white,
+                          size: 35,
                         ),
                       ),
-                      height: 60,
-                      width: 60,
+                      height: 70,
+                      width: 70,
                     ),
                     Container(
                       child: Material(
@@ -71,10 +76,11 @@ class ShowCaseNavigation extends StatelessWidget {
                         child: Icon(
                           Icons.keyboard_arrow_right,
                           color: Colors.white,
+                          size: 35,
                         ),
                       ),
-                      height: 60,
-                      width: 60,
+                      height: 70,
+                      width: 70,
                     ),
                   ],
                 ),
@@ -82,7 +88,18 @@ class ShowCaseNavigation extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: Container(),
+              child: isLast ? Container(
+                child: GestureDetector(
+                  onTap: () {
+                    if (onClose != null) onClose();
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+                ),
+              ) : Container(),
             ),
           ],
         ),

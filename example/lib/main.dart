@@ -79,6 +79,10 @@ class _MailPageState extends State<MailPage> {
                                   controllerWidget: ShowCaseNavigation(
                                     currentCase: 1,
                                     totalCase: 5,
+                                    isLast: true,
+                                    onClose: (){
+                                      ShowCaseWidget.of(context).dismiss();
+                                    },
                                     onNext: () {
                                       ShowCaseWidget.of(context).startShowCase([
                                         _two,
