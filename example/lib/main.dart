@@ -71,6 +71,7 @@ class _MailPageState extends State<MailPage> {
                                 Showcase(
                                   key: _one,
                                   contentPadding: EdgeInsets.all(10),
+                                  disableAnimation: true,
                                   description: 'Tap to see menu options Tap to see menu options Tap to see menu options',
                                   child: Icon(
                                     Icons.menu,
